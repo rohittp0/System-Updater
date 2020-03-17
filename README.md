@@ -11,7 +11,7 @@ This is a handy utlity that will keep your system upto date. It will automatical
   - First open the System Updater.desktop file in a text editor
   - Replace [PATH_TO_CLONED_FOLDER] with the complete path (Line 5,6).
   - Open a terminal in the folder
-  - Run cp ./"System Updater.desktop" /usr/share/Applications/  
+  - Run cp ./"System Updater.desktop" /usr/share/applications/  
 - Add System Updater to Run on start-up
   - This step varries based on distro so google is your friend
   
