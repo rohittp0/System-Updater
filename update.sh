@@ -74,6 +74,7 @@ On_IWhite='\033[0;107m'  # White
 
 #Templates
 Choise="${White}(${BGreen} y${White} / ${BRed}n ${White})${White}"
+Line="${IPurple} ================================================================\n"
 
 cd "$(dirname "$(readlink -fm "$0")")"
 
@@ -133,23 +134,23 @@ fi
 
 sudo apt-get update
 clear
-printf "${BGreen} Scources Updated"
-printf "${IPurple} ----------------------------------------------------------------"
+printf "${BGreen} Scources Updated\n"
+printf $Line
 sudo apt-get autoremove -y
 clear
-printf "${BGreen} Scources Updated"
-printf "${BGreen} Unwanted Packages Removed"
-printf "${IPurple} ----------------------------------------------------------------"
+printf "${BGreen} Scources Updated\n"
+printf "${BGreen} Unwanted Packages Removed\n"
+printf $Line
 sudo apt full-upgrade -y
 clear
-printf "${BGreen} Scources Updated"
-printf "${BGreen} Unwanted Packages Removed"
-printf "${BGreen} All Packages Updated"
-printf "${IPurple} ----------------------------------------------------------------"
+printf "${BGreen} Scources Updated\n"
+printf "${BGreen} Unwanted Packages Removed\n"
+printf "${BGreen} All Packages Updated\n"
+printf $Line
 sudo apt -f
 clear
-printf "${BGreen} Scources Updated"
-printf "${BGreen} Unwanted Packages Removed"
-printf "${BGreen} All Packages Updated"
-printf "${BGreen} Fixed Broken Packages"
-printf "${IPurple} ----------------------------------------------------------------"
+printf "${BGreen} Scources Updated\n"
+printf "${BGreen} Unwanted Packages Removed\n"
+printf "${BGreen} All Packages Updated\n"
+printf "${BGreen} Fixed Broken Packages\n"
+printf $Line
