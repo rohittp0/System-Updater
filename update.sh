@@ -1,7 +1,6 @@
 BGreen='\033[1;32m'
 BIPurple='\033[1;95m'
 
-echo "rohit.t.p2002" | sudo -S -i
 sudo apt-get update
 clear
 echo -e "${BGreen} Scources Updated"
