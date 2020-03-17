@@ -2,8 +2,8 @@
 Name=System Updater
 Comment=Get your system upto date.
 GenericName=Updater
-Exec=./update.sh
-Icon=./update.png
+Exec=[PATH_TO_CLONED_FOLDER]/update.sh
+Icon=[PATH_TO_CLONED_FOLDER]/update.png
 Terminal=true
 StartupNotify=true
 Type=Application
