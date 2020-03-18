@@ -75,6 +75,7 @@ On_IWhite='\033[0;107m'  # White
 #Templates
 Choise="${White}(${BGreen} y${White} / ${BRed}n ${White})${White}"
 Line="${IPurple} ================================================================\n"
+Logo="${On_IBlack}${BIRed}S${UBlue}${BBlue}ystem ${On_IBlack}${BIRed}U${UBlue}${BBlue}pdater${Color_Off}"
 
 cd "$(dirname "$(readlink -fm "$0")")"
 
@@ -112,11 +113,12 @@ if [[ $(date '+%Y-%m-%d') != $last ]]; then
 
     if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
         clear
-        printf "${BGreen}A new version of RunneR is avalable\n"
+        printf "${BGreen}A new version of ${Logo}${BGreen} is avalable\n"
         printf "${BYellow}Do you want to upgrade ? ${Choise}\n"
         read -s -n 1 key
         while [[ $key != "n" && $key != "N" ]]; do
             if [[ $key == "y" || $key == "y" ]]; then
+                printf "${BPurple}Updating...${White}\n"
                 git pull -v origin master
                 printf "${BPurple}Press enter to continue.${White}\n"
                 read -s -n 1 a
