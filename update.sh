@@ -84,16 +84,14 @@ root="/bin/a"
 last="$(cat ./LAST_RUN.date)"
 printf "\n\n"
 
-if [ -f "$pword" ]; then
-    cat "$pword" | sudo -S -i
-else
+if ! [ -f "$pword" ]; then
     printf "${BRed}It seems like you don't have sudo password saved.\n"
     printf "${BPurple}Enter it now to save it !\n"
     printf "${BCyan}To modify it later change it in ${UCyan}$pword${BCyan} file.${White}\n"
     read pass
     printf $pass | sudo -S touch "$root"
     while ! [ -f "/bin/a" ]; do
-        read pass
+        read -s pass
         echo "$pass" | sudo -S -k touch "$root"
         printf "${BRed}Oops Wrong Password\n"
         printf "${BPurple}Please try again${White}\n"
@@ -101,55 +99,44 @@ else
     sudo rm "$root"
     echo "$pass" >"$pword"
     echo "$pass" | sudo -S -i
-fi
-
-clear
-
-if [[ $(date '+%Y-%m-%d') != $last ]]; then
-
-    git remote update
-    HEADHASH=$(git rev-parse HEAD)
-    UPSTREAMHASH=$(git rev-parse master@{upstream})
-
-    if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
-        clear
-        printf "${BGreen}A new version of ${Logo}${BGreen} is avalable\n"
-        printf "${BYellow}Do you want to upgrade ? ${Choise}\n"
-        read -s -n 1 key
-        while [[ $key != "n" && $key != "N" ]]; do
-            if [[ $key == "y" || $key == "y" ]]; then
-                printf "${BPurple}Updating...${White}\n"
-                git pull -v origin master
-                printf "${BPurple}Press enter to continue.${White}\n"
-                read -s -n 1 a
-                break
-            else
-                printf "${BRed}Incorrect Option${White}\n"
-                read -s -n 1 key
-            fi
-        done
-    fi
-    echo "$(date '+%Y-%m-%d')" >"./LAST_RUN.date"
     clear
-    printf "\n\n"
+    printf "\n"
 fi
 
-sudo apt-get update
+wget -O /tmp/system-updater.version $version -q
+if [[ $(cat './.version') != $(cat /tmp/system-updater.version) ]]; then
+    rm /tmp/system-updater.version
+    printf "${BGreen}A new version of System Updater is avalable\n"
+    printf "${BYellow}Do you want to upgrade ? ${Choise}\n"
+    getChoise
+    if [ $choise == true ]; then
+        printf "${BPurple}Updating...${White}\n"
+        git reset HEAD --hard
+        git clean -f
+        git pull origin master
+        printf "${BPurple}Press enter to continue.${White}\n"
+        read -s -n 1 a
+    fi
+    clear
+    printf "\n"
+fi
+
+cat "$pword" | sudo -S apt-get update
 clear
 printf "${BGreen} Scources Updated\n"
 printf $Line
-sudo apt-get autoremove -y
+cat "$pword" | sudo -S apt-get autoremove -y
 clear
 printf "${BGreen} Scources Updated\n"
 printf "${BGreen} Unwanted Packages Removed\n"
 printf $Line
-sudo apt full-upgrade -y
+cat "$pword" | sudo -S apt full-upgrade -y
 clear
 printf "${BGreen} Scources Updated\n"
 printf "${BGreen} Unwanted Packages Removed\n"
 printf "${BGreen} All Packages Updated\n"
 printf $Line
-sudo apt -f
+cat "$pword" | sudo -S apt -f
 clear
 printf "${BGreen} Scources Updated\n"
 printf "${BGreen} Unwanted Packages Removed\n"
