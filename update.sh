@@ -102,10 +102,10 @@ if ! [ -f "$pword" ]; then
     printf "\n"
 fi
 
-wget -O /tmp/system-updater.version "https://raw.githubusercontent.com/rohittp0/System-Updater/master/.version" -q
-if [[ $(cat './.version') != $(cat /tmp/system-updater.version) ]]; then
-    rm /tmp/system-updater.version
-    printf "${BGreen}A new version of System Updater is avalable\n"
+ver=$(curl $version)
+clear
+if [[ $(cat './.version') != $ver ]]; then
+    printf "${BGreen}A new version of RunneR is avalable\n"
     printf "${BYellow}Do you want to upgrade ? ${Choise}\n"
     getChoise
     if [ $choise == true ]; then
@@ -117,7 +117,7 @@ if [[ $(cat './.version') != $(cat /tmp/system-updater.version) ]]; then
         read -s -n 1 a
     fi
     clear
-    printf "\n"
+    printf "\n\n"
 fi
 
 cat "$pword" | sudo -S apt-get update
