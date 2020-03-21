@@ -81,8 +81,7 @@ cd "$(dirname "$(readlink -fm "$0")")"
 
 pword="./.password.shadow"
 root="/bin/a"
-last="$(cat ./LAST_RUN.date)"
-printf "\n\n"
+printf "\n"
 
 if ! [ -f "$pword" ]; then
     printf "${BRed}It seems like you don't have sudo password saved.\n"
@@ -103,7 +102,7 @@ if ! [ -f "$pword" ]; then
     printf "\n"
 fi
 
-wget -O /tmp/system-updater.version $version -q
+wget -O /tmp/system-updater.version "https://raw.githubusercontent.com/rohittp0/System-Updater/master/.version" -q
 if [[ $(cat './.version') != $(cat /tmp/system-updater.version) ]]; then
     rm /tmp/system-updater.version
     printf "${BGreen}A new version of System Updater is avalable\n"
